@@ -455,6 +455,16 @@ class FXnum:
         return FXnum._rawbuild(self.family,
                                (self.scaledval >> shift))
 
+    def __mod__(self, other):
+        """Get reminder of a number"""
+        other = self._CastOrFail_(other)
+        return FXnum._rawbuild(
+            self.family, (self.scaledval % other.scaledval)
+        )
+
+    def __rmod__(self, other):
+        return FXnum(other, self.family) % self
+
     def __truediv__(self, other):
         """Divide by another number (without truncation)"""
         other = self._CastOrFail_(other)
