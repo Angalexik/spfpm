@@ -645,6 +645,16 @@ class FXnum:
             result = FXnum(1, self.family) / result
         return result
 
+    def factorial(self):
+        if self < 0:
+            raise FXdomainError
+        result = 1
+        thing = self
+        for i in range(1, int(thing) + 1):
+            result = result * i
+
+        return result
+
     def sqrt(self):
         """Compute square-root of given number."""
         if self.scaledval < 0:
