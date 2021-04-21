@@ -112,7 +112,7 @@ class FXfamily:
         self.validate = validate
 
         # Cached values of various mathematical constants:
-        self._exp1, self._log2, self._pi, self._sqrt2 = (None,) * 4
+        self._exp1, self._log2, self._pi, self._sqrt2, self._e = (None,) * 5
 
     @property
     def resolution(self):
@@ -170,6 +170,24 @@ class FXfamily:
 
             self._pi = FXnum(augpi, self)
         return self._pi
+
+    @property
+    def e(self):
+        if self._e is None:
+            augfamily = self.augment()
+
+            auge = augfamily(0)
+            f = 1
+            n = 1
+            while True:
+                olde = auge
+                auge += augfamily(1) / f
+                if auge == olde:
+                    break
+                f *= n
+                n += 1
+            self._e = FXnum(auge, self)
+        return self._e
 
     @property
     def sqrt2(self):
